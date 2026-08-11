@@ -52,7 +52,15 @@ export const todosService = {
       todos = todos.filter((t) => t.title.includes(q) || (t.notes ?? '').includes(q));
     }
 
-    todos = todos.toSorted((a, b) => b.createdAt.localeCompare(a.createdAt));
+    todos =
+      query.sort === 'dueDate'
+        ? todos.toSorted((a, b) => {
+            if (!a.dueDate && !b.dueDate) return 0;
+            if (!a.dueDate) return 1;
+            if (!b.dueDate) return -1;
+            return a.dueDate.localeCompare(b.dueDate);
+          })
+        : todos.toSorted((a, b) => b.createdAt.localeCompare(a.createdAt));
 
     const start = (query.page - 1) * query.pageSize;
     const pageItems = todos.slice(start, start + query.pageSize);

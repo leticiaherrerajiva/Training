@@ -80,4 +80,10 @@ describe('todosService', () => {
     const feed = activityService.list({ todoId: 'todo_a', limit: 10 });
     expect(feed[0]?.action).toBe('deleted');
   });
+
+  it('sorts by due date ascending, with no-due-date todos last', () => {
+    // fixture: todo_a has no dueDate, todo_b is due 2026-02-01, todo_c has no dueDate
+    const { todos } = todosService.list({ sort: 'dueDate', page: 1, pageSize: 20 });
+    expect(todos.map((t) => t.id)).toEqual(['todo_b', 'todo_a', 'todo_c']);
+  });
 });
