@@ -68,6 +68,13 @@ export function TodoFilterBar({ lists, tags, meta }: TodoFilterBarProps) {
           </option>
         ))}
       </select>
+      <select
+        value={filters.sort ?? 'createdAt'}
+        onChange={(e) => setFilter('sort', e.target.value as 'createdAt' | 'dueDate')}
+      >
+        <option value="createdAt">Sort: Newest created</option>
+        <option value="dueDate">Sort: Due date</option>
+      </select>
       <Button onClick={resetFilters}>Clear</Button>
       <div className={styles.pager}>
         <Button disabled={filters.page <= 1} onClick={() => setFilter('page', filters.page - 1)}>

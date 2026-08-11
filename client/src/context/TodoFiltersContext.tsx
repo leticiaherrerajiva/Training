@@ -7,6 +7,7 @@ export interface TodoFilters {
   tagId?: string;
   listId?: string;
   q?: string;
+  sort?: 'createdAt' | 'dueDate';
   page: number;
 }
 

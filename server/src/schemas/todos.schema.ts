@@ -26,7 +26,7 @@ export const todoQuerySchema = z.object({
   tagId: z.string().optional(),
   listId: z.string().optional(),
   q: z.string().optional(),
-  sort: z.enum(['createdAt']).default('createdAt'),
+  sort: z.enum(['createdAt', 'dueDate']).default('createdAt'),
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 });

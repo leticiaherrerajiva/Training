@@ -44,4 +44,15 @@ describe('todos routes', () => {
     const after = await request(app).get('/api/todos/todo_a');
     expect(after.status).toBe(404);
   });
+
+  it('GET /api/todos?sort=dueDate sorts ascending with no-due-date last', async () => {
+    const res = await request(app).get('/api/todos?sort=dueDate');
+    expect(res.status).toBe(200);
+    expect(res.body.data.map((t: { id: string }) => t.id)).toEqual(['todo_b', 'todo_a', 'todo_c']);
+  });
+
+  it('GET /api/todos?sort=bogus is rejected as invalid', async () => {
+    const res = await request(app).get('/api/todos?sort=bogus');
+    expect(res.status).toBe(400);
+  });
 });

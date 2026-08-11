@@ -74,7 +74,7 @@ export interface TodoQuery {
   listId?: string;
   /** Free-text search over title and notes. */
   q?: string;
-  sort?: 'createdAt';
+  sort?: 'createdAt' | 'dueDate';
   page?: number;
   pageSize?: number;
 }
