@@ -80,4 +80,27 @@ describe('todosService', () => {
     const feed = activityService.list({ todoId: 'todo_a', limit: 10 });
     expect(feed[0]?.action).toBe('deleted');
   });
+
+  it('clears completed todos and records a deletion per todo', () => {
+    const result = todosService.clearCompleted();
+    expect(result.deletedCount).toBe(1);
+    expect(() => todosService.getById('todo_c')).toThrow(NotFoundError);
+    const feed = activityService.list({ todoId: 'todo_c', limit: 10 });
+    expect(feed[0]?.action).toBe('deleted');
+  });
+
+  it('scopes clearCompleted to a list when given one', () => {
+    todosService.complete('todo_a'); // list_a
+    const result = todosService.clearCompleted('list_b'); // todo_c lives in list_b
+    expect(result.deletedCount).toBe(1);
+    expect(todosService.getById('todo_a').status).toBe('done');
+    expect(() => todosService.getById('todo_c')).toThrow(NotFoundError);
+  });
+
+  it('leaves open todos alone when clearing completed', () => {
+    const result = todosService.clearCompleted();
+    expect(result.deletedCount).toBe(1);
+    expect(todosService.getById('todo_a')).toBeTruthy();
+    expect(todosService.getById('todo_b')).toBeTruthy();
+  });
 });

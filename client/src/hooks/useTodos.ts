@@ -69,6 +69,15 @@ export function useTodos(query: TodoQuery) {
     [refetch],
   );
 
+  const clearCompletedTodos = useCallback(
+    async (listId?: string) => {
+      const result = await todosApi.clearCompleted(listId);
+      await refetch();
+      return result;
+    },
+    [refetch],
+  );
+
   return {
     todos,
     meta,
@@ -80,5 +89,6 @@ export function useTodos(query: TodoQuery) {
     completeTodo,
     reopenTodo,
     deleteTodo,
+    clearCompletedTodos,
   };
 }

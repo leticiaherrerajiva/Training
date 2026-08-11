@@ -7,9 +7,17 @@ export interface TodoFilterBarProps {
   lists: List[];
   tags: Tag[];
   meta?: PageMeta;
+  completedCount: number;
+  onClearCompleted: () => void;
 }
 
-export function TodoFilterBar({ lists, tags, meta }: TodoFilterBarProps) {
+export function TodoFilterBar({
+  lists,
+  tags,
+  meta,
+  completedCount,
+  onClearCompleted,
+}: TodoFilterBarProps) {
   const { filters, setFilter, resetFilters } = useTodoFilters();
 
   const totalPages = meta ? Math.max(1, Math.ceil(meta.total / meta.pageSize)) : 1;
@@ -69,6 +77,9 @@ export function TodoFilterBar({ lists, tags, meta }: TodoFilterBarProps) {
         ))}
       </select>
       <Button onClick={resetFilters}>Clear</Button>
+      <Button variant="danger" disabled={completedCount === 0} onClick={onClearCompleted}>
+        Clear completed ({completedCount})
+      </Button>
       <div className={styles.pager}>
         <Button disabled={filters.page <= 1} onClick={() => setFilter('page', filters.page - 1)}>
           ‹

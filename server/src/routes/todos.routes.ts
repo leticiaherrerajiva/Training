@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import { parseWith } from '../lib/validate';
 import { sendData } from '../lib/respond';
-import { createTodoSchema, todoQuerySchema, updateTodoSchema } from '../schemas/todos.schema';
+import {
+  clearCompletedQuerySchema,
+  createTodoSchema,
+  todoQuerySchema,
+  updateTodoSchema,
+} from '../schemas/todos.schema';
 import { todosService } from '../services/todos.service';
 
 export const todosRouter = Router();
@@ -32,6 +37,11 @@ todosRouter.post('/:id/complete', (req, res) => {
 
 todosRouter.post('/:id/reopen', (req, res) => {
   sendData(res, todosService.reopen(req.params.id));
+});
+
+todosRouter.delete('/completed', (req, res) => {
+  const { listId } = parseWith(clearCompletedQuerySchema, req.query);
+  sendData(res, todosService.clearCompleted(listId));
 });
 
 todosRouter.delete('/:id', (req, res) => {

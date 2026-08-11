@@ -30,3 +30,7 @@ export const todoQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 });
+
+export const clearCompletedQuerySchema = z.object({
+  listId: z.string().optional(),
+});

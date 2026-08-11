@@ -45,4 +45,11 @@ export const todosApi = {
   async remove(id: string): Promise<void> {
     await request(`/api/todos/${id}`, { method: 'DELETE' });
   },
+
+  async clearCompleted(listId?: string): Promise<{ deletedCount: number }> {
+    const qs = listId ? `?listId=${encodeURIComponent(listId)}` : '';
+    return (await request<{ deletedCount: number }>(`/api/todos/completed${qs}`, {
+      method: 'DELETE',
+    })).data;
+  },
 };
