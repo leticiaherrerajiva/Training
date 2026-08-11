@@ -6,8 +6,6 @@ function isoDateToday(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-const COMPLETED_STATUS: string = 'completed';
-
 export const statsService = {
   summary(): StatsSummary {
     const todos = todosRepository.findAll();
@@ -24,7 +22,7 @@ export const statsService = {
         high: todos.filter((t) => t.priority === 'high').length,
       },
       completedThisWeek: todos.filter(
-        (t) => t.status === COMPLETED_STATUS && t.completedAt && t.completedAt >= weekAgo,
+        (t) => t.status === 'done' && t.completedAt && t.completedAt >= weekAgo,
       ).length,
       overdue: todos.filter((t) => t.status === 'open' && t.dueDate && t.dueDate < today).length,
     };
