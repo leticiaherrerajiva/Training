@@ -1,0 +1,37 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.low {
+  background: var(--tone-low);
+  color: var(--tone-low-text);
+}
+
+.medium {
+  background: var(--tone-medium);
+  color: var(--tone-medium-text);
+}
+
+.high {
+  background: var(--tone-high);
+  color: var(--tone-high-text);
+}
+
+.neutral {
+  background: var(--tone-neutral);
+  color: var(--tone-neutral-text);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}

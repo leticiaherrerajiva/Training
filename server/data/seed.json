@@ -1,0 +1,613 @@
+{
+  "lists": [
+    {
+      "id": "list_01",
+      "name": "Sprint Work",
+      "description": "Current sprint commitments",
+      "createdAt": "2026-06-01T09:00:00.000Z"
+    },
+    {
+      "id": "list_02",
+      "name": "Team Ops",
+      "description": "Process, meetings, and team housekeeping",
+      "createdAt": "2026-06-01T09:05:00.000Z"
+    },
+    {
+      "id": "list_03",
+      "name": "Learning",
+      "description": "Courses, reading, and skill-building",
+      "createdAt": "2026-06-01T09:10:00.000Z"
+    },
+    {
+      "id": "list_04",
+      "name": "Personal",
+      "description": "Everything that is not work",
+      "createdAt": "2026-06-01T09:15:00.000Z"
+    }
+  ],
+  "tags": [
+    {
+      "id": "tag_01",
+      "name": "urgent",
+      "color": "#e05d44",
+      "createdAt": "2026-06-01T09:20:00.000Z"
+    },
+    {
+      "id": "tag_02",
+      "name": "frontend",
+      "color": "#4c9aff",
+      "createdAt": "2026-06-01T09:21:00.000Z"
+    },
+    {
+      "id": "tag_03",
+      "name": "backend",
+      "color": "#36b37e",
+      "createdAt": "2026-06-01T09:22:00.000Z"
+    },
+    { "id": "tag_04", "name": "docs", "color": "#998dd9", "createdAt": "2026-06-01T09:23:00.000Z" },
+    {
+      "id": "tag_05",
+      "name": "review",
+      "color": "#ffab00",
+      "createdAt": "2026-06-01T09:24:00.000Z"
+    },
+    {
+      "id": "tag_06",
+      "name": "chore",
+      "color": "#8993a4",
+      "createdAt": "2026-06-01T09:25:00.000Z"
+    },
+    {
+      "id": "tag_07",
+      "name": "design",
+      "color": "#ff7452",
+      "createdAt": "2026-06-01T09:26:00.000Z"
+    },
+    {
+      "id": "tag_08",
+      "name": "research",
+      "color": "#00b8d9",
+      "createdAt": "2026-06-01T09:27:00.000Z"
+    }
+  ],
+  "todos": [
+    {
+      "id": "todo_01",
+      "title": "Draft Weekly Report for stakeholders",
+      "notes": "Include sprint burndown and open risks.",
+      "status": "open",
+      "priority": "high",
+      "listId": "list_01",
+      "tagIds": ["tag_04", "tag_01"],
+      "dueDate": "2026-07-20",
+      "createdAt": "2026-07-13T10:00:00.000Z",
+      "updatedAt": "2026-07-13T10:00:00.000Z"
+    },
+    {
+      "id": "todo_02",
+      "title": "Collect report figures from analytics",
+      "notes": "Pull the conversion numbers before drafting the Weekly Report.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_01",
+      "tagIds": ["tag_08"],
+      "dueDate": "2026-07-18",
+      "createdAt": "2026-07-12T09:30:00.000Z",
+      "updatedAt": "2026-07-12T09:30:00.000Z"
+    },
+    {
+      "id": "todo_03",
+      "title": "Fix login form validation message",
+      "notes": "Error message shows raw key instead of copy.",
+      "status": "open",
+      "priority": "high",
+      "listId": "list_01",
+      "tagIds": ["tag_02", "tag_01"],
+      "dueDate": "2026-07-28",
+      "createdAt": "2026-07-15T14:20:00.000Z",
+      "updatedAt": "2026-07-15T14:20:00.000Z"
+    },
+    {
+      "id": "todo_04",
+      "title": "Review PR #482 (payments retry logic)",
+      "status": "open",
+      "priority": "high",
+      "listId": "list_01",
+      "tagIds": ["tag_05", "tag_03"],
+      "dueDate": "2026-07-25",
+      "createdAt": "2026-07-16T08:45:00.000Z",
+      "updatedAt": "2026-07-16T08:45:00.000Z"
+    },
+    {
+      "id": "todo_05",
+      "title": "Update onboarding runbook",
+      "notes": "New starters keep hitting the same env-setup issues.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_02",
+      "tagIds": ["tag_04"],
+      "dueDate": "2026-08-08",
+      "createdAt": "2026-07-10T11:00:00.000Z",
+      "updatedAt": "2026-07-10T11:00:00.000Z"
+    },
+    {
+      "id": "todo_06",
+      "title": "Prepare retro board",
+      "status": "done",
+      "priority": "low",
+      "listId": "list_02",
+      "tagIds": ["tag_06"],
+      "createdAt": "2026-07-08T09:00:00.000Z",
+      "updatedAt": "2026-07-17T16:00:00.000Z",
+      "completedAt": "2026-07-17T16:00:00.000Z"
+    },
+    {
+      "id": "todo_07",
+      "title": "Rotate API keys for staging",
+      "notes": "Quarterly security chore.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_02",
+      "tagIds": ["tag_06", "tag_03"],
+      "dueDate": "2026-07-15",
+      "createdAt": "2026-07-01T10:15:00.000Z",
+      "updatedAt": "2026-07-01T10:15:00.000Z"
+    },
+    {
+      "id": "todo_08",
+      "title": "Finish TypeScript generics module",
+      "notes": "Two lessons left in the course.",
+      "status": "open",
+      "priority": "low",
+      "listId": "list_03",
+      "tagIds": ["tag_08"],
+      "dueDate": "2026-08-15",
+      "createdAt": "2026-06-28T19:00:00.000Z",
+      "updatedAt": "2026-06-28T19:00:00.000Z"
+    },
+    {
+      "id": "todo_09",
+      "title": "Read accessibility guidelines summary",
+      "status": "done",
+      "priority": "medium",
+      "listId": "list_03",
+      "tagIds": ["tag_08", "tag_02"],
+      "createdAt": "2026-06-25T12:00:00.000Z",
+      "updatedAt": "2026-07-05T18:30:00.000Z",
+      "completedAt": "2026-07-05T18:30:00.000Z"
+    },
+    {
+      "id": "todo_10",
+      "title": "Book dentist appointment",
+      "status": "open",
+      "priority": "low",
+      "listId": "list_04",
+      "tagIds": [],
+      "dueDate": "2026-07-22",
+      "createdAt": "2026-07-09T07:30:00.000Z",
+      "updatedAt": "2026-07-09T07:30:00.000Z"
+    },
+    {
+      "id": "todo_11",
+      "title": "Plan team offsite agenda",
+      "notes": "Half-day workshop plus social slot.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_02",
+      "tagIds": ["tag_07"],
+      "dueDate": "2026-08-20",
+      "createdAt": "2026-07-11T13:00:00.000Z",
+      "updatedAt": "2026-07-11T13:00:00.000Z"
+    },
+    {
+      "id": "todo_12",
+      "title": "Spike: evaluate feature-flag providers",
+      "notes": "Compare hosted vs self-managed. Write up a short report.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_01",
+      "tagIds": ["tag_08", "tag_03"],
+      "dueDate": "2026-08-01",
+      "createdAt": "2026-07-14T15:40:00.000Z",
+      "updatedAt": "2026-07-14T15:40:00.000Z"
+    },
+    {
+      "id": "todo_13",
+      "title": "Fix flaky checkout integration test",
+      "status": "open",
+      "priority": "high",
+      "listId": "list_01",
+      "tagIds": ["tag_03", "tag_06"],
+      "dueDate": "2026-07-12",
+      "createdAt": "2026-07-02T09:10:00.000Z",
+      "updatedAt": "2026-07-02T09:10:00.000Z"
+    },
+    {
+      "id": "todo_14",
+      "title": "Design empty states for dashboard",
+      "status": "done",
+      "priority": "medium",
+      "listId": "list_01",
+      "tagIds": ["tag_07", "tag_02"],
+      "createdAt": "2026-06-30T10:00:00.000Z",
+      "updatedAt": "2026-07-16T11:20:00.000Z",
+      "completedAt": "2026-07-16T11:20:00.000Z"
+    },
+    {
+      "id": "todo_15",
+      "title": "Write ADR for cache invalidation approach",
+      "notes": "Capture the tradeoffs we discussed in architecture sync.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_01",
+      "tagIds": ["tag_04", "tag_03"],
+      "dueDate": "2026-08-04",
+      "createdAt": "2026-07-17T09:00:00.000Z",
+      "updatedAt": "2026-07-17T09:00:00.000Z"
+    },
+    {
+      "id": "todo_16",
+      "title": "Clean up unused npm dependencies",
+      "status": "open",
+      "priority": "low",
+      "listId": "list_02",
+      "tagIds": ["tag_06"],
+      "createdAt": "2026-07-06T16:00:00.000Z",
+      "updatedAt": "2026-07-06T16:00:00.000Z"
+    },
+    {
+      "id": "todo_17",
+      "title": "Pair with new hire on first ticket",
+      "status": "done",
+      "priority": "high",
+      "listId": "list_02",
+      "tagIds": ["tag_05"],
+      "createdAt": "2026-07-13T08:00:00.000Z",
+      "updatedAt": "2026-07-21T15:00:00.000Z",
+      "completedAt": "2026-07-21T15:00:00.000Z"
+    },
+    {
+      "id": "todo_18",
+      "title": "Watch conference talk on event sourcing",
+      "status": "open",
+      "priority": "low",
+      "listId": "list_03",
+      "tagIds": ["tag_08"],
+      "createdAt": "2026-07-03T20:00:00.000Z",
+      "updatedAt": "2026-07-03T20:00:00.000Z"
+    },
+    {
+      "id": "todo_19",
+      "title": "Renew gym membership",
+      "status": "done",
+      "priority": "low",
+      "listId": "list_04",
+      "tagIds": [],
+      "createdAt": "2026-06-20T18:00:00.000Z",
+      "updatedAt": "2026-07-01T12:00:00.000Z",
+      "completedAt": "2026-07-01T12:00:00.000Z"
+    },
+    {
+      "id": "todo_20",
+      "title": "Buy birthday gift for Sam",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_04",
+      "tagIds": [],
+      "dueDate": "2026-08-10",
+      "createdAt": "2026-07-18T09:00:00.000Z",
+      "updatedAt": "2026-07-18T09:00:00.000Z"
+    },
+    {
+      "id": "todo_21",
+      "title": "Refactor date helpers into shared module",
+      "notes": "Duplicate formatting logic in three components.",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_01",
+      "tagIds": ["tag_02", "tag_06"],
+      "dueDate": "2026-08-12",
+      "createdAt": "2026-07-19T10:30:00.000Z",
+      "updatedAt": "2026-07-19T10:30:00.000Z"
+    },
+    {
+      "id": "todo_22",
+      "title": "Audit API error responses for consistency",
+      "notes": "Some endpoints still return ad-hoc error shapes.",
+      "status": "done",
+      "priority": "medium",
+      "listId": "list_01",
+      "tagIds": ["tag_03", "tag_05"],
+      "createdAt": "2026-06-22T09:00:00.000Z",
+      "updatedAt": "2026-07-19T17:45:00.000Z",
+      "completedAt": "2026-07-19T17:45:00.000Z"
+    },
+    {
+      "id": "todo_23",
+      "title": "Draft Q3 learning goals",
+      "status": "open",
+      "priority": "medium",
+      "listId": "list_03",
+      "tagIds": ["tag_04"],
+      "dueDate": "2026-08-29",
+      "createdAt": "2026-07-20T11:00:00.000Z",
+      "updatedAt": "2026-07-20T11:00:00.000Z"
+    },
+    {
+      "id": "todo_24",
+      "title": "Set up monitoring alert for queue depth",
+      "status": "done",
+      "priority": "high",
+      "listId": "list_01",
+      "tagIds": ["tag_03", "tag_01"],
+      "createdAt": "2026-07-07T14:00:00.000Z",
+      "updatedAt": "2026-07-22T10:10:00.000Z",
+      "completedAt": "2026-07-22T10:10:00.000Z"
+    },
+    {
+      "id": "todo_25",
+      "title": "Organize team photo for intranet page",
+      "status": "done",
+      "priority": "low",
+      "listId": "list_02",
+      "tagIds": ["tag_06"],
+      "createdAt": "2026-06-18T09:00:00.000Z",
+      "updatedAt": "2026-06-29T13:00:00.000Z",
+      "completedAt": "2026-06-29T13:00:00.000Z"
+    }
+  ],
+  "activity": [
+    {
+      "id": "act_001",
+      "todoId": "todo_25",
+      "todoTitle": "Organize team photo for intranet page",
+      "action": "created",
+      "at": "2026-06-18T09:00:00.000Z"
+    },
+    {
+      "id": "act_002",
+      "todoId": "todo_19",
+      "todoTitle": "Renew gym membership",
+      "action": "created",
+      "at": "2026-06-20T18:00:00.000Z"
+    },
+    {
+      "id": "act_003",
+      "todoId": "todo_22",
+      "todoTitle": "Audit API error responses for consistency",
+      "action": "created",
+      "at": "2026-06-22T09:00:00.000Z"
+    },
+    {
+      "id": "act_004",
+      "todoId": "todo_09",
+      "todoTitle": "Read accessibility guidelines summary",
+      "action": "created",
+      "at": "2026-06-25T12:00:00.000Z"
+    },
+    {
+      "id": "act_005",
+      "todoId": "todo_08",
+      "todoTitle": "Finish TypeScript generics module",
+      "action": "created",
+      "at": "2026-06-28T19:00:00.000Z"
+    },
+    {
+      "id": "act_006",
+      "todoId": "todo_25",
+      "todoTitle": "Organize team photo for intranet page",
+      "action": "completed",
+      "at": "2026-06-29T13:00:00.000Z"
+    },
+    {
+      "id": "act_007",
+      "todoId": "todo_14",
+      "todoTitle": "Design empty states for dashboard",
+      "action": "created",
+      "at": "2026-06-30T10:00:00.000Z"
+    },
+    {
+      "id": "act_008",
+      "todoId": "todo_19",
+      "todoTitle": "Renew gym membership",
+      "action": "completed",
+      "at": "2026-07-01T12:00:00.000Z"
+    },
+    {
+      "id": "act_009",
+      "todoId": "todo_07",
+      "todoTitle": "Rotate API keys for staging",
+      "action": "created",
+      "at": "2026-07-01T10:15:00.000Z"
+    },
+    {
+      "id": "act_010",
+      "todoId": "todo_13",
+      "todoTitle": "Fix flaky checkout integration test",
+      "action": "created",
+      "at": "2026-07-02T09:10:00.000Z"
+    },
+    {
+      "id": "act_011",
+      "todoId": "todo_18",
+      "todoTitle": "Watch conference talk on event sourcing",
+      "action": "created",
+      "at": "2026-07-03T20:00:00.000Z"
+    },
+    {
+      "id": "act_012",
+      "todoId": "todo_09",
+      "todoTitle": "Read accessibility guidelines summary",
+      "action": "completed",
+      "at": "2026-07-05T18:30:00.000Z"
+    },
+    {
+      "id": "act_013",
+      "todoId": "todo_16",
+      "todoTitle": "Clean up unused npm dependencies",
+      "action": "created",
+      "at": "2026-07-06T16:00:00.000Z"
+    },
+    {
+      "id": "act_014",
+      "todoId": "todo_24",
+      "todoTitle": "Set up monitoring alert for queue depth",
+      "action": "created",
+      "at": "2026-07-07T14:00:00.000Z"
+    },
+    {
+      "id": "act_015",
+      "todoId": "todo_06",
+      "todoTitle": "Prepare retro board",
+      "action": "created",
+      "at": "2026-07-08T09:00:00.000Z"
+    },
+    {
+      "id": "act_016",
+      "todoId": "todo_10",
+      "todoTitle": "Book dentist appointment",
+      "action": "created",
+      "at": "2026-07-09T07:30:00.000Z"
+    },
+    {
+      "id": "act_017",
+      "todoId": "todo_05",
+      "todoTitle": "Update onboarding runbook",
+      "action": "created",
+      "at": "2026-07-10T11:00:00.000Z"
+    },
+    {
+      "id": "act_018",
+      "todoId": "todo_11",
+      "todoTitle": "Plan team offsite agenda",
+      "action": "created",
+      "at": "2026-07-11T13:00:00.000Z"
+    },
+    {
+      "id": "act_019",
+      "todoId": "todo_02",
+      "todoTitle": "Collect report figures from analytics",
+      "action": "created",
+      "at": "2026-07-12T09:30:00.000Z"
+    },
+    {
+      "id": "act_020",
+      "todoId": "todo_01",
+      "todoTitle": "Draft Weekly Report for stakeholders",
+      "action": "created",
+      "at": "2026-07-13T10:00:00.000Z"
+    },
+    {
+      "id": "act_021",
+      "todoId": "todo_17",
+      "todoTitle": "Pair with new hire on first ticket",
+      "action": "created",
+      "at": "2026-07-13T08:00:00.000Z"
+    },
+    {
+      "id": "act_022",
+      "todoId": "todo_12",
+      "todoTitle": "Spike: evaluate feature-flag providers",
+      "action": "created",
+      "at": "2026-07-14T15:40:00.000Z"
+    },
+    {
+      "id": "act_023",
+      "todoId": "todo_03",
+      "todoTitle": "Fix login form validation message",
+      "action": "created",
+      "at": "2026-07-15T14:20:00.000Z"
+    },
+    {
+      "id": "act_024",
+      "todoId": "todo_04",
+      "todoTitle": "Review PR #482 (payments retry logic)",
+      "action": "created",
+      "at": "2026-07-16T08:45:00.000Z"
+    },
+    {
+      "id": "act_025",
+      "todoId": "todo_14",
+      "todoTitle": "Design empty states for dashboard",
+      "action": "completed",
+      "at": "2026-07-16T11:20:00.000Z"
+    },
+    {
+      "id": "act_026",
+      "todoId": "todo_15",
+      "todoTitle": "Write ADR for cache invalidation approach",
+      "action": "created",
+      "at": "2026-07-17T09:00:00.000Z"
+    },
+    {
+      "id": "act_027",
+      "todoId": "todo_06",
+      "todoTitle": "Prepare retro board",
+      "action": "completed",
+      "at": "2026-07-17T16:00:00.000Z"
+    },
+    {
+      "id": "act_028",
+      "todoId": "todo_20",
+      "todoTitle": "Buy birthday gift for Sam",
+      "action": "created",
+      "at": "2026-07-18T09:00:00.000Z"
+    },
+    {
+      "id": "act_029",
+      "todoId": "todo_21",
+      "todoTitle": "Refactor date helpers into shared module",
+      "action": "created",
+      "at": "2026-07-19T10:30:00.000Z"
+    },
+    {
+      "id": "act_030",
+      "todoId": "todo_22",
+      "todoTitle": "Audit API error responses for consistency",
+      "action": "completed",
+      "at": "2026-07-19T17:45:00.000Z"
+    },
+    {
+      "id": "act_031",
+      "todoId": "todo_23",
+      "todoTitle": "Draft Q3 learning goals",
+      "action": "created",
+      "at": "2026-07-20T11:00:00.000Z"
+    },
+    {
+      "id": "act_032",
+      "todoId": "todo_17",
+      "todoTitle": "Pair with new hire on first ticket",
+      "action": "completed",
+      "at": "2026-07-21T15:00:00.000Z"
+    },
+    {
+      "id": "act_033",
+      "todoId": "todo_24",
+      "todoTitle": "Set up monitoring alert for queue depth",
+      "action": "completed",
+      "at": "2026-07-22T10:10:00.000Z"
+    },
+    {
+      "id": "act_034",
+      "todoId": "todo_01",
+      "todoTitle": "Draft Weekly Report for stakeholders",
+      "action": "updated",
+      "at": "2026-07-21T09:15:00.000Z"
+    },
+    {
+      "id": "act_035",
+      "todoId": "todo_13",
+      "todoTitle": "Fix flaky checkout integration test",
+      "action": "updated",
+      "at": "2026-07-18T14:00:00.000Z"
+    },
+    {
+      "id": "act_036",
+      "todoId": "todo_11",
+      "todoTitle": "Plan team offsite agenda",
+      "action": "updated",
+      "at": "2026-07-20T16:30:00.000Z"
+    }
+  ]
+}

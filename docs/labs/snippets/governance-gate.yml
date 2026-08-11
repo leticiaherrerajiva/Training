@@ -1,0 +1,58 @@
+# Lab 2.b — CI gate skeleton (merge-time enforcement, Layer 4).
+#
+# Copy into YOUR copy as `.github/workflows/governance.yml`, then replace the
+# example check with the clause your group derived. Sitting here under
+# docs/labs/snippets/ it is inert — GitHub only runs workflows that live in
+# .github/workflows/.
+#
+# Why a second enforcement point at all? The hook stops the AGENT while it
+# writes. This stops ANYONE — including a human who never opened Claude Code.
+# Same rule, two audiences.
+
+name: governance
+
+on:
+  pull_request:
+
+jobs:
+  conventions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # REQUIRED. The default (fetch-depth: 1) clones a single commit, so
+          # any `git diff` against the base branch fails with a confusing
+          # "unknown revision" error. 0 fetches full history.
+          fetch-depth: 0
+
+      - name: Collect changed files
+        id: changed
+        run: |
+          BASE="origin/${{ github.base_ref }}"
+          git diff --name-only "$BASE"...HEAD > changed.txt
+          echo "--- files in this PR ---"
+          cat changed.txt
+
+      # ─── REPLACE THIS STEP WITH YOUR RULE ─────────────────────────────
+      # Example only: fail if any file was changed under a path you care
+      # about without a matching companion change. Yours will differ — and
+      # you must decide what happens on a docs-only or rename-only PR.
+      - name: Example check
+        run: |
+          if grep -qE '^some/path/' changed.txt; then
+            if ! grep -qE 'some-required-companion' changed.txt; then
+              echo "::error::Changed some/path/** without the required companion change."
+              exit 1
+            fi
+          fi
+          echo "Convention check passed."
+      # ─── END OF THE PART YOU REPLACE ──────────────────────────────────
+
+# Two things to decide before you ship this, and both are governance
+# decisions rather than coding ones:
+#
+#   1. Does it FAIL the build or just annotate? `exit 1` fails; dropping the
+#      exit leaves a warning in the PR. A gate that fails on legitimate work
+#      teaches people to route around it.
+#   2. What is the documented bypass? There is always one — a label, a commit
+#      trailer, an APPROVED- comment. An undocumented bypass is the real hole.

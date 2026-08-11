@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": ["Edit(server/data/seed.json)", "Write(server/data/seed.json)"]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-seed.js\""
+          }
+        ]
+      }
+    ]
+  }
+}

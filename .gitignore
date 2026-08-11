@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+~*
+
+# Runtime database — generated from server/data/seed.json via `npm run reset-db`
+server/data/db.json
+

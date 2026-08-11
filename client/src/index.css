@@ -1,0 +1,56 @@
+/* Design tokens — the only place raw colors and spacing values are defined.
+   Components consume these via var(...) in their CSS Modules. */
+:root {
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-border: #dfe1e6;
+  --color-text: #172b4d;
+  --color-text-muted: #6b778c;
+  --color-primary: #0052cc;
+  --color-primary-hover: #0747a6;
+  --color-danger: #de350b;
+  --color-success: #00875a;
+  --color-warning: #ff8b00;
+
+  --tone-low: #e3fcef;
+  --tone-low-text: #006644;
+  --tone-medium: #deebff;
+  --tone-medium-text: #0747a6;
+  --tone-high: #ffebe6;
+  --tone-high-text: #bf2600;
+  --tone-neutral: #ebecf0;
+  --tone-neutral-text: #42526e;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --radius: 6px;
+  --shadow: 0 1px 3px rgba(9, 30, 66, 0.15);
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--color-text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+}
+
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}

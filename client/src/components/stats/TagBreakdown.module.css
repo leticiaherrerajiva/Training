@@ -1,0 +1,45 @@
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+
+.heading {
+  margin: 0 0 var(--space-3);
+  font-size: 15px;
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 120px 1fr 32px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.track {
+  background: var(--tone-neutral);
+  border-radius: 4px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.count {
+  text-align: right;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
