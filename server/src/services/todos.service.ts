@@ -48,8 +48,10 @@ export const todosService = {
     if (query.listId) todos = todos.filter((t) => t.listId === query.listId);
     if (query.tagId) todos = todos.filter((t) => t.tagIds.includes(query.tagId!));
     if (query.q) {
-      const q = query.q;
-      todos = todos.filter((t) => t.title.includes(q) || (t.notes ?? '').includes(q));
+      const q = query.q.toLowerCase();
+      todos = todos.filter(
+        (t) => t.title.toLowerCase().includes(q) || (t.notes ?? '').toLowerCase().includes(q),
+      );
     }
 
     todos = todos.toSorted((a, b) => b.createdAt.localeCompare(a.createdAt));
