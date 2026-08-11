@@ -140,4 +140,14 @@ export const todosService = {
     activityService.record(todo, 'deleted');
     logger.info('todos.service', 'deleted todo', { id });
   },
+
+  clearCompleted(listId?: string): { deletedCount: number } {
+    let done = todosRepository.findAll().filter((t) => t.status === 'done');
+    if (listId) done = done.filter((t) => t.listId === listId);
+    for (const todo of done) {
+      this.remove(todo.id);
+    }
+    logger.info('todos.service', 'cleared completed todos', { deletedCount: done.length, listId });
+    return { deletedCount: done.length };
+  },
 };

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { todosApi } from '../../api/todosApi';
 import { useLists } from '../../hooks/useLists';
 import { useTags } from '../../hooks/useTags';
 import { useTodos } from '../../hooks/useTodos';
@@ -25,9 +26,34 @@ function TodosPageContent() {
   const { filters } = useTodoFilters();
   const { lists } = useLists();
   const { tags } = useTags();
-  const { todos, meta, loading, error, refetch, createTodo, completeTodo, reopenTodo, deleteTodo } =
-    useTodos(filters);
+  const {
+    todos,
+    meta,
+    loading,
+    error,
+    refetch,
+    createTodo,
+    completeTodo,
+    reopenTodo,
+    deleteTodo,
+    clearCompletedTodos,
+  } = useTodos(filters);
   const [showForm, setShowForm] = useState(false);
+  const [completedCount, setCompletedCount] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    // Count from the returned rows (pageSize: 100, the API max) rather than
+    // meta.total, which reflects only the current page, not the full filtered set.
+    todosApi
+      .list({ status: 'done', listId: filters.listId, page: 1, pageSize: 100 })
+      .then((result) => {
+        if (!cancelled) setCompletedCount(result.data.length);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [filters.listId, todos]);
 
   return (
     <section>
@@ -41,7 +67,13 @@ function TodosPageContent() {
         }
       />
       <InspirationWidget />
-      <TodoFilterBar lists={lists} tags={tags} meta={meta} />
+      <TodoFilterBar
+        lists={lists}
+        tags={tags}
+        meta={meta}
+        completedCount={completedCount}
+        onClearCompleted={() => clearCompletedTodos(filters.listId)}
+      />
       <div className={styles.layout}>
         <TodoGrid
           todos={todos}

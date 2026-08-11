@@ -44,4 +44,22 @@ describe('todos routes', () => {
     const after = await request(app).get('/api/todos/todo_a');
     expect(after.status).toBe(404);
   });
+
+  it('DELETE /api/todos/completed removes only done todos', async () => {
+    const res = await request(app).delete('/api/todos/completed');
+    expect(res.status).toBe(200);
+    expect(res.body.data).toEqual({ deletedCount: 1 });
+    const after = await request(app).get('/api/todos/todo_c');
+    expect(after.status).toBe(404);
+    const stillThere = await request(app).get('/api/todos/todo_a');
+    expect(stillThere.status).toBe(200);
+  });
+
+  it('DELETE /api/todos/completed?listId scopes the deletion', async () => {
+    const res = await request(app).delete('/api/todos/completed?listId=list_a');
+    expect(res.status).toBe(200);
+    expect(res.body.data).toEqual({ deletedCount: 0 });
+    const stillThere = await request(app).get('/api/todos/todo_c');
+    expect(stillThere.status).toBe(200);
+  });
 });
