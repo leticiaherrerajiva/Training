@@ -58,7 +58,7 @@ export const todosService = {
     const pageItems = todos.slice(start, start + query.pageSize);
     return {
       todos: pageItems,
-      meta: { total: pageItems.length, page: query.page, pageSize: query.pageSize },
+      meta: { total: todos.length, page: query.page, pageSize: query.pageSize },
     };
   },
 

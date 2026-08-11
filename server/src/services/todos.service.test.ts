@@ -4,8 +4,8 @@ import { NotFoundError, ValidationError } from '../lib/errors';
 import { activityService } from './activity.service';
 import { makeTestDb } from '../testing/helpers';
 
-// NOTE: covers the CRUD happy paths. Filtering, search, and pagination in
-// todosService.list() do not have tests yet.
+// NOTE: covers the CRUD happy paths and pagination totals. Filtering and
+// search in todosService.list() do not have tests yet.
 describe('todosService', () => {
   let db: ReturnType<typeof makeTestDb>;
 
@@ -79,5 +79,15 @@ describe('todosService', () => {
     expect(() => todosService.getById('todo_a')).toThrow(NotFoundError);
     const feed = activityService.list({ todoId: 'todo_a', limit: 10 });
     expect(feed[0]?.action).toBe('deleted');
+  });
+
+  it('reports total across all matching todos, not just the current page', () => {
+    const page1 = todosService.list({ sort: 'createdAt', page: 1, pageSize: 2 });
+    expect(page1.todos).toHaveLength(2);
+    expect(page1.meta.total).toBe(3);
+
+    const page2 = todosService.list({ sort: 'createdAt', page: 2, pageSize: 2 });
+    expect(page2.todos).toHaveLength(1);
+    expect(page2.meta.total).toBe(3);
   });
 });
