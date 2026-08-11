@@ -4,8 +4,8 @@ import { NotFoundError, ValidationError } from '../lib/errors';
 import { activityService } from './activity.service';
 import { makeTestDb } from '../testing/helpers';
 
-// NOTE: covers the CRUD happy paths. Filtering, search, and pagination in
-// todosService.list() do not have tests yet.
+// NOTE: covers the CRUD happy paths and free-text search. Filtering and
+// pagination in todosService.list() do not have tests yet.
 describe('todosService', () => {
   let db: ReturnType<typeof makeTestDb>;
 
@@ -79,5 +79,35 @@ describe('todosService', () => {
     expect(() => todosService.getById('todo_a')).toThrow(NotFoundError);
     const feed = activityService.list({ todoId: 'todo_a', limit: 10 });
     expect(feed[0]?.action).toBe('deleted');
+  });
+
+  it('searches titles case-insensitively', () => {
+    const { todos } = todosService.list({
+      q: 'FIRST',
+      sort: 'createdAt',
+      page: 1,
+      pageSize: 20,
+    });
+    expect(todos.map((t) => t.id)).toEqual(['todo_a']);
+  });
+
+  it('searches notes as well as titles', () => {
+    const { todos } = todosService.list({
+      q: 'has notes',
+      sort: 'createdAt',
+      page: 1,
+      pageSize: 20,
+    });
+    expect(todos.map((t) => t.id)).toEqual(['todo_b']);
+  });
+
+  it('returns no todos when the search term matches nothing', () => {
+    const { todos } = todosService.list({
+      q: 'nonexistent',
+      sort: 'createdAt',
+      page: 1,
+      pageSize: 20,
+    });
+    expect(todos).toEqual([]);
   });
 });
