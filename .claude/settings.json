@@ -1,6 +1,19 @@
 {
   "permissions": {
-    "deny": ["Edit(server/data/seed.json)", "Write(server/data/seed.json)"]
+    "allow": [],
+    "ask": ["Bash(rm *)"],
+    "deny": [
+      "Edit(server/data/seed.json)",
+      "Write(server/data/seed.json)",
+      "Edit(server/data/db.json)",
+      "Write(server/data/db.json)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Bash(npm publish *)",
+      "Bash(curl * | bash)"
+    ]
   },
   "hooks": {
     "PreToolUse": [
@@ -10,6 +23,25 @@
           {
             "type": "command",
             "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-seed.js\""
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-db.js\""
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-repo-boundary.js\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-convention.js\""
           }
         ]
       }
