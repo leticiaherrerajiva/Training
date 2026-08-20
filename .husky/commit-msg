@@ -1,0 +1,11 @@
+msg_file="$1"
+first_line=$(head -n1 "$msg_file")
+pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9_-]+\))?!?: .+'
+
+if ! printf '%s' "$first_line" | grep -qE "$pattern"; then
+  echo "BLOCKED: commit message doesn't follow Conventional Commits." >&2
+  echo "Why: CLAUDE.md requires Conventional Commits so history stays scriptable." >&2
+  echo "Instead: prefix the first line with a type — feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert — e.g. \"docs: explain it\"." >&2
+  echo "Done means: the first line matches type(scope)?: description." >&2
+  exit 1
+fi

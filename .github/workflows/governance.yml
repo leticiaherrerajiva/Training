@@ -1,0 +1,41 @@
+name: governance
+
+on:
+  pull_request:
+
+jobs:
+  conventional-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # REQUIRED. fetch-depth:1 clones a single commit, so a diff/log
+          # against the base branch fails with "unknown revision".
+          fetch-depth: 0
+
+      - name: Check commit messages follow Conventional Commits
+        run: |
+          BASE="origin/${{ github.base_ref }}"
+          PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9_-]+\))?!?: .+'
+
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'skip-governance') }}" == "true" ]]; then
+            echo "Bypass: PR labeled 'skip-governance' by a maintainer — skipping check."
+            exit 0
+          fi
+
+          FAILED=0
+          while IFS= read -r line; do
+            sha="${line%% *}"
+            msg="${line#* }"
+            if ! echo "$msg" | grep -qE "$PATTERN"; then
+              echo "::error::Commit $sha does not follow Conventional Commits: \"$msg\""
+              FAILED=1
+            fi
+          done < <(git log --no-merges --format='%H %s' "$BASE"...HEAD)
+
+          if [ "$FAILED" -eq 1 ]; then
+            echo "One or more commits don't match type(scope)?: description — see docs/labs and CLAUDE.md."
+            echo "Bypass: a maintainer applies the 'skip-governance' label with a reason in the PR description — never by disabling this workflow."
+            exit 1
+          fi
+          echo "All commits follow Conventional Commits."

@@ -61,6 +61,7 @@ This file is always in context; the docs below are NOT. Read the file when its t
 
 - No hosted deployment: CI (GitHub Actions) runs lint + typecheck + tests on every PR and push to main, and must be green
 - Branches `feat/<slug>` / `fix/<slug>`; Conventional Commits; PRs link their issue with `Closes #N`
+- Conventional Commits is enforced three times over: a `commit-msg` git hook (`.husky/commit-msg`, per-clone, skippable with `--no-verify`) and the `governance` CI gate (`.github/workflows/governance.yml`) both check every commit's first line against `type(scope)?: description` and **fail the build** on a miss — chosen over annotate-only because a rule that only warns gets merged past anyway. Bypass: a maintainer applies the `skip-governance` label with a reason in the PR description — never by disabling the workflow or force-pushing past it
 - Gotchas: Express 5 auto-forwards rejected async handlers to the error middleware — do not add try/catch or wrappers in routes; the client proxies `/api` → :3001, so client API paths are origin-relative; `db.json` is gitignored and generated (a missing db.json is not a bug); `/api/inspiration` simulates a flaky third-party API — its 404/429/500 responses are intended behavior
 
 ## Do / Don't
