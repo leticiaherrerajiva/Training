@@ -1,6 +1,17 @@
 {
   "permissions": {
-    "deny": ["Edit(server/data/seed.json)", "Write(server/data/seed.json)"]
+    "allow": [],
+    "ask": ["Bash(rm *)"],
+    "deny": [
+      "Edit(server/data/seed.json)",
+      "Write(server/data/seed.json)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Bash(npm publish *)",
+      "Bash(curl * | bash)"
+    ]
   },
   "hooks": {
     "PreToolUse": [
