@@ -52,7 +52,7 @@ This file is always in context; the docs below are NOT. Read the file when its t
 
 ## Testing approach
 
-- Vitest, co-located with the module under test (`x.service.ts` → `x.service.test.ts`)
+- Vitest, co-located with the module under test (`x.service.ts` → `x.service.test.ts`) — enforced by a `PostToolUse` hook (`.claude/hooks/check-convention.js`, nudge-only: a missing test can be legitimate, so it informs Claude rather than blocking the edit) and, more strictly, the `sibling-test` job in `.github/workflows/governance.yml`, which **fails the build** on `server/src/services/**` or `server/src/routes/**` changes with no sibling `*.test.ts`. Severity differs on purpose: a heuristic shouldn't interrupt an agent mid-edit, but it also shouldn't be silently mergeable — CI is the last checkpoint before code ships without coverage. Bypass: a maintainer applies the `skip-governance` label with a reason in the PR description
 - Server tests MUST create their data dir via `makeTestDb()` from `server/src/testing/helpers.ts` — never read or assert against the real seed data
 - Cover the error paths (404/409/validation) for any endpoint you touch — `tags.routes.test.ts` is the pattern
 - Run `npm test`, `npm run lint`, and `npm run typecheck` before every PR
@@ -69,5 +69,6 @@ This file is always in context; the docs below are NOT. Read the file when its t
 - Do: record architectural decisions in `docs/adr/` (template provided); put cross-cutting rules in `docs/nfr/` (copy the form of NFR-0001); team recipes live in `docs/best-practices/`
 - Do: reuse the tags vertical slice as the reference implementation when adding a resource
 - Don't: NEVER modify `server/data/seed.json` — it is the canonical baseline every lab resets to (also enforced by a deny rule and a PreToolUse hook); change data via the API or `db.json`, then `npm run reset-db`; done means seed.json has no diff
+- Don't: edit `server/data/db.json` directly — it is generated; change data through the API, or edit seed.json via PR and run `npm run reset-db` (also enforced by a deny rule and a PreToolUse hook). Bypass: data changes go through a PR flagged to the instructor — never by disabling the hook
 - Don't: access `db.json` outside `server/src/repositories/` — routes and services never import `db/store.ts`
 - Don't: never commit secrets — this repo needs no credentials; anything resembling one is a mistake

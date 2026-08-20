@@ -39,3 +39,39 @@ jobs:
             exit 1
           fi
           echo "All commits follow Conventional Commits."
+
+  sibling-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # REQUIRED. fetch-depth:1 clones a single commit, so a diff against
+          # the base branch fails with "unknown revision".
+          fetch-depth: 0
+
+      - name: Check server/src services & routes ship with a sibling test
+        run: |
+          BASE="origin/${{ github.base_ref }}"
+
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'skip-governance') }}" == "true" ]]; then
+            echo "Bypass: PR labeled 'skip-governance' by a maintainer — skipping check."
+            exit 0
+          fi
+
+          FAILED=0
+          while IFS= read -r f; do
+            if [[ "$f" =~ ^server/src/(services|routes)/[^/]+\.ts$ ]] && [[ "$f" != *.test.ts ]]; then
+              test_file="${f%.ts}.test.ts"
+              if [ ! -f "$test_file" ]; then
+                echo "::error::$f has no sibling test ($test_file)"
+                FAILED=1
+              fi
+            fi
+          done < <(git diff --name-only --diff-filter=AM "$BASE"...HEAD)
+
+          if [ "$FAILED" -eq 1 ]; then
+            echo "One or more server/src/services or routes changes are missing a co-located Vitest file — see CLAUDE.md's testing approach."
+            echo "Bypass: a maintainer applies the 'skip-governance' label with a reason in the PR description — never by disabling this workflow."
+            exit 1
+          fi
+          echo "All service/route changes have a sibling test."
