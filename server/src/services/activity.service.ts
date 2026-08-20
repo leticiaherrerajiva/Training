@@ -2,7 +2,6 @@ import type { ActivityAction, ActivityEntry, Todo } from '@taskboard/shared';
 import { newId } from '../lib/ids';
 import { activityRepository } from '../repositories/activity.repository';
 
-// Demo violation for the sibling-test CI gate — reverted in the next commit.
 export const activityService = {
   list(options: { todoId?: string; limit: number }): ActivityEntry[] {
     const entries = options.todoId
