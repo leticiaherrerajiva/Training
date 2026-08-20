@@ -31,7 +31,7 @@ jobs:
               echo "::error::Commit $sha does not follow Conventional Commits: \"$msg\""
               FAILED=1
             fi
-          done < <(git log --no-merges --format='%H %s' "$BASE"...HEAD)
+          done < <(git log --no-merges --format='%H %s' "$BASE"..HEAD)
 
           if [ "$FAILED" -eq 1 ]; then
             echo "One or more commits don't match type(scope)?: description — see docs/labs and CLAUDE.md."
@@ -59,15 +59,28 @@ jobs:
           fi
 
           FAILED=0
-          while IFS= read -r f; do
-            if [[ "$f" =~ ^server/src/(services|routes)/[^/]+\.ts$ ]] && [[ "$f" != *.test.ts ]]; then
+          while IFS=$'\t' read -r status f; do
+            if [[ "$status" == "D" ]]; then
+              if [[ "$f" =~ ^server/src/(services|routes)/[^/]+\.test\.ts$ ]]; then
+                module_file="${f%.test.ts}.ts"
+                if [ -f "$module_file" ]; then
+                  echo "::error::$f was deleted but $module_file still exists — coverage removed"
+                  FAILED=1
+                fi
+              fi
+              continue
+            fi
+
+            if [[ "$f" =~ ^server/src/(services|routes)/[^/]+\.ts$ ]] \
+               && [[ "$f" != *.test.ts ]] \
+               && [[ "$f" != */index.ts ]]; then
               test_file="${f%.ts}.test.ts"
               if [ ! -f "$test_file" ]; then
                 echo "::error::$f has no sibling test ($test_file)"
                 FAILED=1
               fi
             fi
-          done < <(git diff --name-only --diff-filter=AM "$BASE"...HEAD)
+          done < <(git diff --no-renames --name-status --diff-filter=AMD "$BASE"...HEAD)
 
           if [ "$FAILED" -eq 1 ]; then
             echo "One or more server/src/services or routes changes are missing a co-located Vitest file — see CLAUDE.md's testing approach."
@@ -75,3 +88,41 @@ jobs:
             exit 1
           fi
           echo "All service/route changes have a sibling test."
+
+  repo-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # REQUIRED. fetch-depth:1 clones a single commit, so a diff against
+          # the base branch fails with "unknown revision".
+          fetch-depth: 0
+
+      - name: Check only repositories/ imports db/store.ts
+        run: |
+          BASE="origin/${{ github.base_ref }}"
+
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'skip-governance') }}" == "true" ]]; then
+            echo "Bypass: PR labeled 'skip-governance' by a maintainer — skipping check."
+            exit 0
+          fi
+
+          FAILED=0
+          while IFS= read -r f; do
+            [ -f "$f" ] || continue # skip deleted files
+            [[ "$f" == server/src/repositories/* ]] && continue
+            [[ "$f" == server/src/index.ts ]] && continue
+
+            hit=$(grep -nE "from ['\"][^'\"]*/db/store['\"]" "$f" | grep -v -E ':\s*import type ' || true)
+            if [ -n "$hit" ]; then
+              echo "::error::$f imports db/store.ts outside server/src/repositories/: $hit"
+              FAILED=1
+            fi
+          done < <(git diff --no-renames --name-only --diff-filter=AM "$BASE"...HEAD -- '*.ts')
+
+          if [ "$FAILED" -eq 1 ]; then
+            echo "Only server/src/repositories/ (and the composition root, index.ts) may import db/store.ts — see CLAUDE.md's architecture section."
+            echo "Bypass: a maintainer applies the 'skip-governance' label with a reason in the PR description — never by disabling this workflow."
+            exit 1
+          fi
+          echo "No repository-boundary violations found."
